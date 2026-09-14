@@ -13,6 +13,10 @@ struct Cli {
     #[arg(value_parser = validate_path)]
     path: String,
 
+    /// Target directory path
+    #[arg(value_parser = validate_path)]
+    target_directory: Option<String>,
+
     /// Changes the date format for the backup file
     #[arg(long, short, default_value_t = "%Y%m%d%H%M".to_string())]
     format: String,
@@ -32,7 +36,13 @@ fn main() {
     let cli = Cli::parse();
     let source = &cli.path;
     let now = Utc::now().format(&cli.format);
-    let destination = format!("{source}.{now}.bkp");
+    let destination = match cli.target_directory {
+        None => format!("{source}.{now}.bkp"),
+        Some(target_directory) => {
+            let filename = source.split("/").last().unwrap();
+            format!("{target_directory}/{filename}.{now}.bkp")
+        }
+    };
 
     let _ = fs::copy(cli.path, destination);
 }
