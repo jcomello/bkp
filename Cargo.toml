@@ -2,8 +2,16 @@
 name = "bkp"
 version = "0.1.0"
 edition = "2024"
+authors = ["João Mello <joaocarreira88@gmail.com>"]
+license = "GPL-3.0"
+description = "Creates a backup file with timestamp"
+readme = "README.md"
+homepage = "https://github.com/jcomello/bkp"
+repository = "https://github.com/jcomello/bkp"
+keywords = ["cli", "backup"]
+categories = ["command-line-utilities"]
 
 [dependencies]
 anyhow = "1.0.104"
 chrono = { version = "0.4.45", default-features = false, features = ["std", "now"] }
-clap = { version = "4.6.6", features = ["derive"] }
+clap = { version = "4.6.6", features = ["color", "help", "std", "suggestions", "usage", "derive"] }

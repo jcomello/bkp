@@ -13,7 +13,9 @@ struct Cli {
     #[arg(value_parser = validate_path)]
     path: String,
 
-    /// Target directory path
+    /// Target directory path. If target directory is
+    /// not given, the backup file will be saved in
+    /// the same directory as the original file.
     #[arg(value_parser = validate_path)]
     target_directory: Option<String>,
 
